@@ -64,3 +64,9 @@ Desktop.ini
 
 # firebase sdk
 firebase-adminsdk.json
+
+# ai
+CLAUDE.md
+.claude/
+AGENTS.md
+.agents/
