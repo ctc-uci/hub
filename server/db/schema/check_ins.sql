@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS check_ins CASCADE;
-CREATE TYPE status AS ENUM ('checked_in', 'waitlisted');
+DROP TYPE IF EXISTS check_ins_status;
+CREATE TYPE check_ins_status AS ENUM ('checked_in', 'waitlisted');
 
 CREATE TABLE check_ins (
     id SERIAL PRIMARY KEY,
@@ -7,12 +8,12 @@ CREATE TABLE check_ins (
     service_id INTEGER NOT NULL,
     unit_id INTEGER,
     time_slot_id INTEGER,
-    status status NOT NULL,
-    checked_in_at TIMESTAMP NOT NULL,
-    started_at TIMESTAMP,
-    ended_at TIMESTAMP,
+    status check_ins_status NOT NULL,
+    checked_in_at TIMESTAMPTZ NOT NULL,
+    started_at TIMESTAMPTZ,
+    ended_at TIMESTAMPTZ,
     checked_in_by INTEGER NOT NULL,
-    ticket_given_at TIMESTAMP,
+    ticket_given_at TIMESTAMPTZ,
     ticket_given_by INTEGER,
     
     CONSTRAINT ck_started_ended CHECK (
@@ -27,9 +28,12 @@ CREATE TABLE check_ins (
     ),
 
     CONSTRAINT fk_patron_id FOREIGN KEY (patron_id) REFERENCES patrons(id),
-    CONSTRAINT fk_services_id FOREIGN KEY (service_id) REFERENCES services(id),
+    CONSTRAINT fk_service_id FOREIGN KEY (service_id) REFERENCES services(id),
     CONSTRAINT fk_unit_id FOREIGN KEY (unit_id) REFERENCES service_units(id),
     CONSTRAINT fk_time_slot_id FOREIGN KEY (time_slot_id) REFERENCES time_slots(id),
     CONSTRAINT fk_checked_in_by FOREIGN KEY (checked_in_by) REFERENCES users(id),
     CONSTRAINT fk_ticket_given_by FOREIGN KEY (ticket_given_by) REFERENCES users(id)
 );
+
+CREATE INDEX IF NOT EXISTS idx_checks_ins_patron_id ON check_ins (patron_id);
+CREATE INDEX IF NOT EXISTS idx_checks_ins_service_id ON check_ins (service_id);
