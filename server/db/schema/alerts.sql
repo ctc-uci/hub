@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS public.alerts (
     CONSTRAINT alerts_check_in_id_fk FOREIGN KEY (check_in_id) REFERENCES public.check_ins(id),
     CONSTRAINT alerts_flag_id_fk FOREIGN KEY (flag_id) REFERENCES public.patron_flags(id),
     CONSTRAINT alerts_check_in_id_flag_id_uq UNIQUE (check_in_id, flag_id)
-);
+)
 
 TABLESPACE pg_default;
 
