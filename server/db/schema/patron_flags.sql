@@ -1,7 +1,7 @@
 -- Wrapped type definition for idempotency
 DO $$
 BEGIN 
-    CREATE TYPE type_of_type AS ENUM ('ban', 'bolo');
+    CREATE TYPE public.type_of_type AS ENUM ('ban', 'bolo');
 EXCEPTION
     WHEN duplicate_object THEN NULL;
 END $$;
