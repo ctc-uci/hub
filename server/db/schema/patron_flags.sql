@@ -1,7 +1,7 @@
 -- Wrapped type definition for idempotency
 DO $$
 BEGIN 
-    CREATE TYPE public.type_of_type AS ENUM ('ban', 'bolo');
+    CREATE TYPE public.patron_flag_type AS ENUM ('ban', 'bolo');
 EXCEPTION
     WHEN duplicate_object THEN NULL;
 END $$;
@@ -9,7 +9,7 @@ END $$;
 CREATE TABLE IF NOT EXISTS public.patron_flags (
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     patron_id integer NOT NULL,
-    "type" type_of_type NOT NULL,
+    "type" patron_flag_type NOT NULL,
     reason TEXT NOT NULL,
     "start_date" DATE NOT NULL,
     end_date DATE,
