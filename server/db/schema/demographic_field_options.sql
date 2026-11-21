@@ -13,5 +13,5 @@ CREATE TABLE demographic_field_options (
     CONSTRAINT uq_id_field_id UNIQUE (id, field_id),
 
     --UQ2: prevents duplicate options under the same question
-    CONSTRAINT uq_id_field_id UNIQUE (field_id, label)
+    CONSTRAINT uq_field_id_label UNIQUE (field_id, label)
 );

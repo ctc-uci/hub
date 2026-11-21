@@ -5,7 +5,7 @@
 --is_required, not null and default false
 --sort_order, not null
 
-CREATE TYPE field_type as eNUM (
+CREATE TYPE field_type as ENUM (
     'single_select',
     'multi_select',
     'date',
@@ -20,4 +20,4 @@ CREATE TABLE demographic_fields (
     type field_type NOT NULL,
     is_required BOOLEAN NOT NULL DEFAULT FALSE,
     sort_order INT NOT NULL
-)
+);
