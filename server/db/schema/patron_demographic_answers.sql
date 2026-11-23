@@ -1,5 +1,5 @@
 CREATE TABLE patron_demographic_answers(
-    id INT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
 
     patron_id INT NOT NULL REFERENCES 
         patrons(id),
