@@ -1,6 +1,6 @@
 CREATE TYPE audit_action AS ENUM('create', 'update', 'delete');
 
-CREATE TABLE audit_logs (
+CREATE TABLE IF NOT EXISTS audit_logs (
     id INT PRIMARY KEY,
     user_id INT REFERENCES users(id),
     patron_id INT REFERENCES patrons(id) ON DELETE SET NULL,
