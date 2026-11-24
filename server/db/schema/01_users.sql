@@ -3,7 +3,11 @@
 -- DROP TABLE IF EXISTS public.users;
 
 DO $$ BEGIN
-    CREATE TYPE public.user_role AS ENUM ('volunteer', 'staff', 'admin');
+    CREATE TYPE public.user_role AS ENUM (
+        'volunteer', 
+        'staff', 
+        'admin'
+        );
 EXCEPTION
     WHEN duplicate_object THEN NULL;
 END $$;

@@ -1,4 +1,6 @@
-DROP TABLE IF EXISTS public.patrons;
+-- Table: public.patrons
+
+-- DROP TABLE IF EXISTS public.patrons;
 
 DO $$ BEGIN
         CREATE TYPE public.patron_phases AS ENUM (
@@ -11,7 +13,7 @@ EXCEPTION
     WHEN duplicate_object THEN NULL;
 END $$;
 
-CREATE TABLE public.patrons (
+CREATE TABLE IF NOT EXISTS public.patrons (
   id INT GENERATED ALWAYS AS IDENTITY,
   first_name VARCHAR(255) NOT NULL,
   middle_initial VARCHAR(1), 
@@ -31,6 +33,4 @@ CREATE TABLE public.patrons (
   CONSTRAINT patrons_created_fkey 
     FOREIGN KEY (created_by)
     REFERENCES public.users (id)
-    
 );
-
