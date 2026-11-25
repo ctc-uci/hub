@@ -2,19 +2,24 @@
 
 -- DROP TABLE IF EXISTS public.users;
 
-CREATE TABLE IF NOT EXISTS public.users
-(
-    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    email character varying(256) COLLATE pg_catalog."default" NOT NULL,
-    firebase_uid character varying(128) COLLATE pg_catalog."default" NOT NULL,
-    role character varying(16) COLLATE pg_catalog."default" NOT NULL DEFAULT 'user'::character varying,
-    CONSTRAINT user_pkey PRIMARY KEY (id),
-    CONSTRAINT email UNIQUE (email),
-    CONSTRAINT firebase_uid UNIQUE (firebase_uid),
-    CONSTRAINT role_check CHECK (role::text = ANY (ARRAY['user'::character varying, 'admin'::character varying]::text[]))
+DO $$ BEGIN
+  CREATE TYPE public.user_role AS ENUM ('volunteer', 'staff', 'admin');
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END $$;
+
+CREATE TABLE IF NOT EXISTS public.users (
+  id INT GENERATED ALWAYS AS IDENTITY,
+  email VARCHAR(256) NOT NULL,
+  firebase_uid VARCHAR(128) NOT NULL,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  role public.user_role NOT NULL DEFAULT 'volunteer',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+  CONSTRAINT users_pkey PRIMARY KEY (id),
+  CONSTRAINT users_email_key UNIQUE (email),
+  CONSTRAINT users_firebase_uid_key UNIQUE (firebase_uid)
 )
 
 TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS public.users
-    OWNER to postgres;
