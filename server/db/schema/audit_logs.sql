@@ -1,12 +1,16 @@
-CREATE TYPE audit_action AS ENUM('create', 'update', 'delete');
+DO $$ BEGIN
+    CREATE TYPE audit_action AS ENUM ('create', 'update', 'delete');
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 CREATE TABLE IF NOT EXISTS audit_logs (
-    id INT PRIMARY KEY,
-    user_id INT REFERENCES users(id),
-    patron_id INT REFERENCES patrons(id) ON DELETE SET NULL,
+    id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id integer REFERENCES users(id),
+    patron_id integer REFERENCES patrons(id) ON DELETE SET NULL,
     action AUDIT_ACTION,
     entity TEXT,
-    entity_id INT,
+    entity_id integer,
     changes JSONB,
-    created_at TIMESTAMP
+    created_at TIMESTAMP DEFAULT now()
 );
