@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS public.users (
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   role public.user_role NOT NULL DEFAULT 'volunteer',
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
 
   CONSTRAINT users_pkey PRIMARY KEY (id),
   CONSTRAINT users_email_key UNIQUE (email),

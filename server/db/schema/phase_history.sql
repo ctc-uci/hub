@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS public.phase_history (
   id INT GENERATED ALWAYS AS IDENTITY,
   patron_id INT NOT NULL,
   phase public.patron_phases NOT NULL,
-  changed_at TIMESTAMP NOT NULL DEFAULT NOW(),
+  changed_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   changed_by INT NOT NULL,
 
   CONSTRAINT phase_history_pkey PRIMARY KEY (id),
