@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     user_id integer REFERENCES users(id),
     patron_id integer REFERENCES patrons(id) ON DELETE SET NULL,
-    action AUDIT_ACTION,
+    action AUDIT_ACTION NOT NULL,
     entity TEXT,
     entity_id integer,
     changes JSONB,
