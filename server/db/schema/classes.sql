@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS classes (
   description text,
   is_active boolean NOT NULL DEFAULT true,
   created_by integer NOT NULL,
-  created_at timestamp NOT NULL DEFAULT now(),
+  created_at timestamptz NOT NULL DEFAULT now(),
   CONSTRAINT created_by_fk FOREIGN KEY (created_by) REFERENCES users(id)
 );

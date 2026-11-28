@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     entity TEXT NOT NULL,
     entity_id integer NOT NULL,
     changes JSONB NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT now()
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 CREATE INDEX IF NOT EXISTS audit_logs_patron_id_created_at_idx
