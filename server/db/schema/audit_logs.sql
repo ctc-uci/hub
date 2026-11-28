@@ -12,5 +12,5 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     entity TEXT,
     entity_id integer,
     changes JSONB,
-    created_at TIMESTAMP DEFAULT now()
+    created_at TIMESTAMP NOT NULL DEFAULT now()
 );
